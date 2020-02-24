@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void maxandmin(int ** dptr1, int ** dptr2,int arr1[],int len)
+void maxandmin(int ** dptr1, int ** dptr2,int * arr1,int len)
 {
 
  if(arr1[0]>arr1[1]&&arr1[0]>arr1[2]&&arr1[0]>arr1[3]&&arr1[0]>arr1[4])
