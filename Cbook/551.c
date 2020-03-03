@@ -1,44 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-char * inputstr(char n1)
-{ 
-int t=n1,i;
-char * ptr1=(char*)malloc(sizeof(char)*t);
-
-gets(ptr1);
-
-return ptr1;
-}
-
-
+#include <string.h>
 
 int main(void)
 {
- char ch,l;
- int i;
- char*str;
-
+ int i,cnt,len;
+  
 puts("Enter the lenght of your string that you want type.");
-ch=getchar();
-l=ch;; 
+scanf("%d",&cnt);
+getchar(); 
+ 
+char * ptr1=(char*)malloc(sizeof(char)*cnt+1);
 
 puts("Enter your string.");
-str=inputstr(ch);
+
+gets(ptr1);
+
+puts("string that you enter is :");
+puts(ptr1);
+puts("string lenght is :");
+printf("%lu\n",strlen(ptr1));
+len=strlen(ptr1);
+
+puts("opposit printing is :");
+
+for(i=len; i>=0; i--)
+ {
+  if(ptr1[i]==' ')
+   {printf("%s\n",&ptr1[i]+1);
+    ptr1[i]=0; 
+   }
+ }
+printf("%s",&ptr1[0]);
 
 
-puts("num1 is :");printf("%d\n",ch);
-puts("str[] is :"); 
- for(i=0; i<ch+1; i++ )
- printf("%c",str[i]);
-puts("\n");
-
-
-for(i=0; i<ch+1; i++)
-{ printf("%c",str[i]);
-  if(str[i]==32)
-   puts("\n");
-}
-
+free(ptr1);
 return 0;
 }
