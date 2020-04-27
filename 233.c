@@ -1,48 +1,36 @@
 #include <stdio.h>
-int arr[11],sum,result=0,max,p=1;
-
-void dice(int level,int sum)
-{int i;
-
- if(level>max-1){
-
- for(i=0; i<max; i++)
-  result+=arr[i];
- 
- if(result==sum){
-  
-  if(p>max){
-  for(i=0; i<max; i++)
-   printf("%d ",arr[i]);
-
-   puts("");
-   p=0;
-   result=0;}
-
-   return;}
- else{
-   result=0;
-   return ; }
-   
- }
-
- for(i=1; i<=6; i++){
-  arr[level]=i;
-  p++;
-  dice(level+1,sum);
-  }
-
+int dicearr[10]={0,};
+int dicenum,sum;
+void dicethrow(int idx)
+{ 
+    int i,j,total;
+    for (i = 1; i <= 6; i++)
+    {
+	    dicearr[idx]=i;
+	if (idx < dicenum)
+	{
+	    dicethrow(idx+1);
+	}
+	else if (idx == dicenum)
+	{
+	    total=0;
+	    for (j=0; j<dicenum; j++)
+		total += dicearr[j];
+	    if (total == sum)
+	    {
+		for (j=0; j<dicenum; j++)
+		{ 
+		    printf("%d ",dicearr[j]);
+		}
+		puts("");
+		break;
+	    }
+	}   
+    }
 }
-
-
-
-
-int main(void){
-scanf("%d%d",&max,&sum);
-
-arr[0]=1;
-
-dice(0,sum);
-
-return 0;
+int main(void)
+{
+    scanf("%d%d",&dicenum,&sum);
+    dicethrow(0);    
+    return 0;
 }

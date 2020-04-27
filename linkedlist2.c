@@ -4,13 +4,13 @@ typedef struct node_
 {
     int data;
     struct node_ * next;
-    struct node_ * before;
 }Node;
 typedef struct list_
 {
     struct node_ * cur;
     struct node_ * head;
     struct node_ * tail;
+    struct node_ * before;
     int numofdata;
 }List;
 void listinit(List * L)
@@ -18,6 +18,7 @@ void listinit(List * L)
     L->cur = NULL;
     L->head = NULL;
     L->tail = NULL;
+    L->before = NULL;
     int numofdata = 0;
 }
 void makelist(List * L,int N)
@@ -25,7 +26,6 @@ void makelist(List * L,int N)
     Node * newnode = (Node *)malloc(sizeof(Node));
     newnode->data  = N;
     newnode->next  = NULL;
-    newnode->before = NULL;
     if (L->tail == NULL)
     {
 	L->tail = newnode;
@@ -35,7 +35,6 @@ void makelist(List * L,int N)
     {
 	L->head->next = newnode;
     }
-    newnode->before = L->cur;
     L->cur = newnode;
     L->head = newnode;
     L->numofdata++;
@@ -47,10 +46,10 @@ void datainsert(List * L,int N)
     L->cur = L->tail;
     while(1)
     {	
-	if (L->cur->before->data < N && L->cur->data > N)
+	if (L->cur->next->data > N && L->cur->data < N)
 	{
-	    newnode->next = L->cur;
-	    L->cur->before->next = newnode;
+	    newnode->next = L->cur->next;
+	    L->cur->next = newnode;
 	    break;
 	}
 	else if (L->head->data < N)
@@ -121,9 +120,7 @@ int main(void)
     makelist(L,19);
     makelist(L,30);
     printlist(L);
-   
-    /*왜 2나 15등 을 추가하면 세그멘테이션에러가??*/
- 
+    datainsert(L,2);
     datainsert(L,14);
     datainsert(L,33);
     datainsert(L,-4);
